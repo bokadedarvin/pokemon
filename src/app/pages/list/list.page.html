@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar class="mb-4">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Pokemon List
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let item of pokemonData">
+      <ion-thumbnail slot="start">
+          <img [src]="item.infoData?.image" />
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{item.name | titlecase}}</h2>
+        <h3>Base Experience: {{item.infoData?.base_experience}},  Weight: {{item.infoData?.weight}}</h3>
+        <!-- <p>Listen, I've had a pretty messed up day...</p> -->
+      </ion-label>
+      <div class="item-note" slot="end">
+        <ion-button fill="clear" (click)="seeDetails(item.infoData.id)">
+          <ion-icon slot="icon-only" name="arrow-forward"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
